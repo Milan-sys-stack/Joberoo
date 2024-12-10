@@ -32,11 +32,12 @@ app.get('/api/jobs', async (req, res) => {
             const council = $(element).find('.job-list__council').text().trim();
             const location = $(element).find('.job-list__location').text().trim();
             const dates = $(element).find('.job-list__dates').text().trim();
+            const description = $(element).find('.job-list__description').text();
 
             // Find the job link
             const link = $(element).closest('a').attr('href');
 
-            jobs.push({ title, council, location, dates, link });
+            jobs.push({ title, council, location, dates, link, description });
         });
 
         // Send JSON response with job data
@@ -45,22 +46,6 @@ app.get('/api/jobs', async (req, res) => {
         console.error('Error fetching jobs:', error);
         res.status(500).json({ message: 'Error fetching jobs' });
     }
-});
-
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-});
-
-const nodemailer = require('nodemailer');
-
-// Set up Nodemailer transporter
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'your-email@gmail.com', // replace with your email
-    pass: 'your-email-password'    // replace with your email password
-  }
 });
 
 // Endpoint for email subscription
@@ -82,4 +67,22 @@ app.post('/api/subscribe', express.json(), (req, res) => {
     }
   });
 });
+
+
+// Start server
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+const nodemailer = require('nodemailer');
+
+// Set up Nodemailer transporter
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'your-email@gmail.com', // replace with your email
+    pass: 'your-email-password'    // replace with your email password
+  }
+});
+
 
