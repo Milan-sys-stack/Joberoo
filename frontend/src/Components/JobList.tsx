@@ -9,6 +9,9 @@ type Job = {
   council: string;
   location: string;
   dates: number[];
+  logo: string;
+  fullLogoUrl: any;
+
 };
 
 type JobResponse = {
@@ -43,24 +46,26 @@ const JobList: React.FC = () => {
     <>
     {/* Logo Section */}
     <div className="flex justify-center mt-10">
-  <div className="flex flex-col items-center">
-    <img
-      src={Logo}
-      alt="Joberoo"
-      style={{ height: "", width: '' }}  /> {/* Directly set size */}
-    <h1 className="text-2xl font-bold text-red-600 mt-4">Available Jobs</h1>
-  </div>
+
 </div>
     {/* Job Listings */}
     <div className="mt-10">
+    <div className="flex flex-col items-center">
+    <img
+      src={Logo}
+      alt="Joberoo"
+       className=''  /> {/* Directly set size */}
+    <h1 className="text-2xl font-bold text-red-600 mt-4">Available Jobs</h1>
+  </div>
     <ul>
   {jobs.map((job, index) => (
     <li key={index}>
       <div className="m-5">
-        <div className="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8 text-gray-700 shadow transition hover:shadow-lg sm:mx-auto">
+        <div className="group mx-2 mt-10 grid max-w-screen-md grid-cols-12 space-x-8 overflow-hidden rounded-lg border py-8  shadow transition hover:shadow-lg sm:mx-auto">
           <a href={job.link} target="_blank" rel="noopener noreferrer" className="order-2 col-span-1 mt-4 -ml-14 text-left text-gray-600 hover:text-gray-700 sm:-order-1 sm:ml-4">
             <div className="group relative h-16 w-16 overflow-hidden rounded-lg">
-              <img src="/images/EC25KRDBo-K3w8GexNHSE.png" alt="" className="h-full w-full object-cover text-gray-700" />
+             <img src={job.logo} alt={`${job.council} logo`} className="h-full w-full object-cover text-gray-700" />
+             
             </div>
           </a>
           <div className="col-span-11 flex flex-col pr-8 text-left sm:pl-4">
