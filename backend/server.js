@@ -32,12 +32,20 @@ app.get('/api/jobs', async (req, res) => {
             const council = $(element).find('.job-list__council').text().trim();
             const location = $(element).find('.job-list__location').text().trim();
             const dates = $(element).find('.job-list__dates').text().trim();
-            const description = $(element).find('.job-list__description').text();
+            const description = $(element).find('.wpjb-job-content+wpjb-job-content--2627').text().trim();
+    // Extract the logo URL
+    const logoElement = $(element).find('.wpjb-info__logo-image job-logo');
+    const logo = logoElement.attr('src') || ''; // If no logo found, fall back to an empty string
+
+    // Handle relative and absolute URLs for the logo
+    const fullLogoUrl = logo && !logo.startsWith('http') 
+        ? `https://www.careersatcouncil.com.au${logo}` 
+        : logo;
 
             // Find the job link
             const link = $(element).closest('a').attr('href');
 
-            jobs.push({ title, council, location, dates, link, description });
+            jobs.push({ title, council, location, dates, link, description, logo:fullLogoUrl });
         });
 
         // Send JSON response with job data
